@@ -15,14 +15,23 @@ The repository is organized as a set of lesson folders. Each folder contains a J
 |-- supervised_fine_tuning/
 |   |-- supervised_fine_tuning.ipynb
 |   |-- helper.py
+|   |-- models/
+|   |   |-- HuggingFaceTB/.gitkeep
+|   |   `-- Qwen/.gitkeep
 |   `-- requirements.txt
 |-- direct_preference_optimisation/
-|   |-- Lesson_5.ipynb
+|   |-- dpo.ipynb
 |   |-- helper.py
+|   |-- models/
+|   |   |-- HuggingFaceTB/.gitkeep
+|   |   `-- Qwen/.gitkeep
 |   `-- requirements.txt
 |-- online_reinforcement_learning/
 |   |-- grpo.ipynb
 |   |-- helper.py
+|   |-- models/
+|   |   |-- HuggingFaceTB/.gitkeep
+|   |   `-- Qwen/.gitkeep
 |   `-- requirements.txt
 `-- README.md
 ```
@@ -43,7 +52,7 @@ The notebook also references pre-trained comparison models such as `Qwen/Qwen3-0
 
 ### 2. Direct Preference Optimization
 
-Path: `direct_preference_optimisation/Lesson_5.ipynb`
+Path: `direct_preference_optimisation/dpo.ipynb`
 
 This notebook shows how preference pairs can steer an instruction model, using:
 
@@ -65,6 +74,14 @@ This notebook evaluates and trains a model on GSM8K-style math reasoning with a 
 
 It also includes evaluation flow for a fully trained `banghua/Qwen2.5-0.5B-GRPO` checkpoint.
 
+## Referenced Assets
+
+| Lesson | Local training model | Comparison checkpoints | Datasets |
+| --- | --- | --- | --- |
+| SFT | `HuggingFaceTB/SmolLM2-135M` | `Qwen/Qwen3-0.6B-Base`, `banghua/Qwen3-0.6B-SFT` | `banghua/DL-SFT-Dataset` |
+| DPO | `HuggingFaceTB/SmolLM2-135M-Instruct` | `Qwen/Qwen2.5-0.5B-Instruct`, `banghua/Qwen2.5-0.5B-DPO` | `mrfakename/identity`, `banghua/DL-DPO-Dataset` |
+| GRPO | `HuggingFaceTB/SmolLM2-135M-Instruct` | `Qwen/Qwen2.5-0.5B-Instruct`, `banghua/Qwen2.5-0.5B-GRPO` | `openai/gsm8k` |
+
 ## Setup
 
 Create a virtual environment from the repository root:
@@ -75,7 +92,7 @@ source .venv/bin/activate
 python -m pip install --upgrade pip
 ```
 
-Install the requirements for the lesson you want to run:
+Install the requirements for the lesson you want to run. For example:
 
 ```bash
 pip install -r supervised_fine_tuning/requirements.txt
@@ -98,9 +115,11 @@ pip install jupyter
 jupyter notebook
 ```
 
+Open each notebook from its own lesson directory, or start Jupyter from the repository root and set the notebook working directory accordingly before running cells. The notebooks use relative paths such as `./models/...`.
+
 ## Model and Dataset Access
 
-The notebooks use Hugging Face datasets and model checkpoints. Large model files are not committed to this repository. The placeholder `models/` directories indicate where local snapshots can be placed.
+The notebooks use Hugging Face datasets and model checkpoints. Large model files are not committed to this repository. Each lesson has placeholder `models/HuggingFaceTB/` and `models/Qwen/` directories for local snapshots.
 
 Most notebooks reference models with paths like:
 
@@ -142,7 +161,7 @@ The helper files are currently duplicated across lesson folders so each notebook
 ## Suggested Order
 
 1. Start with `supervised_fine_tuning/supervised_fine_tuning.ipynb`.
-2. Continue with `direct_preference_optimisation/Lesson_5.ipynb`.
+2. Continue with `direct_preference_optimisation/dpo.ipynb`.
 3. Finish with `online_reinforcement_learning/grpo.ipynb`.
 
 This order follows the usual post-training progression: teach the model the desired response format with SFT, improve preferences with DPO, then optimize task-specific behavior with reinforcement learning.
